@@ -1,61 +1,130 @@
 import { Button } from "@/components/ui/button";
-import { Shield, CheckCircle, Clock, Users } from "lucide-react";
+import { Shield, CheckCircle, Clock, Users, Star, Zap, Award, TrendingUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="pt-24 pb-16 bg-gradient-subtle">
-      <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="animate-fade-in">
-            <Shield className="w-16 h-16 text-primary mx-auto mb-6" />
-            <h1 className="text-5xl font-bold text-foreground mb-6 leading-tight">
-              Professional Coinbase Support
-              <span className="block text-primary">At Your Service</span>
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Get expert assistance with your Coinbase account, trading issues, security concerns, and more. 
-              Fast, reliable, and professional support from certified Coinbase specialists.
-            </p>
-          </div>
+    <section className="relative pt-24 pb-20 overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-gradient-hero opacity-90" />
+      <div className="absolute inset-0 bg-gradient-glass" />
+      
+      {/* Animated Background Elements */}
+      <div className="absolute top-20 left-10 w-32 h-32 bg-primary/10 rounded-full animate-float blur-xl" />
+      <div className="absolute top-40 right-20 w-24 h-24 bg-primary-glow/10 rounded-full animate-pulse-slow blur-xl" />
+      <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-primary/5 rounded-full animate-scale-pulse blur-2xl" />
 
-          <div className="animate-slide-up flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            <Button 
-              variant="hero" 
-              size="lg"
-              onClick={() => navigate("/contact")}
-              className="min-w-[200px]"
-            >
-              Get Support Now
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg"
-              onClick={() => document.getElementById("live-chat")?.scrollIntoView({ behavior: "smooth" })}
-              className="min-w-[200px]"
-            >
-              Start Live Chat
-            </Button>
-          </div>
+      <div className="relative container mx-auto px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="animate-fade-in">
+              <div className="relative inline-block mb-6">
+                <Shield className="w-20 h-20 text-primary mx-auto animate-glow" />
+                <div className="absolute inset-0 w-20 h-20 bg-primary/20 rounded-full animate-scale-pulse mx-auto" />
+              </div>
+              
+              <h1 className="text-6xl md:text-7xl font-bold text-foreground mb-6 leading-tight">
+                <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent animate-gradient-shift bg-300%">
+                  Professional Coinbase
+                </span>
+                <br />
+                <span className="text-foreground">Support Specialists</span>
+              </h1>
+              
+              <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
+                Get <span className="text-primary font-semibold">expert assistance</span> with your Coinbase account, trading issues, security concerns, and more. 
+                <br />
+                <span className="text-primary">Fast, reliable, and professional</span> support from certified specialists.
+              </p>
+            </div>
 
-          {/* Trust Indicators */}
-          <div className="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
-            <div className="bg-card p-6 rounded-lg shadow-card animate-fade-in">
-              <CheckCircle className="w-8 h-8 text-success mx-auto mb-3" />
-              <h3 className="font-semibold text-foreground mb-2">Verified Support</h3>
-              <p className="text-sm text-muted-foreground">Certified Coinbase specialists ready to help</p>
+            <div className="animate-slide-up flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+              <Button 
+                variant="hero" 
+                size="lg"
+                onClick={() => navigate("/contact")}
+                className="min-w-[220px] text-lg px-8 py-4 relative overflow-hidden group shadow-glow"
+              >
+                <div className="absolute inset-0 bg-gradient-advanced opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <span className="relative z-10 flex items-center gap-2">
+                  <Zap className="w-5 h-5" />
+                  Get Support Now
+                </span>
+              </Button>
+              <Button 
+                variant="outline" 
+                size="lg"
+                onClick={() => document.getElementById("live-chat")?.scrollIntoView({ behavior: "smooth" })}
+                className="min-w-[220px] text-lg px-8 py-4 border-2 border-primary/30 hover:border-primary hover:shadow-soft transition-all duration-300 backdrop-blur-sm"
+              >
+                Start Live Chat
+              </Button>
             </div>
-            <div className="bg-card p-6 rounded-lg shadow-card animate-fade-in">
-              <Clock className="w-8 h-8 text-primary mx-auto mb-3" />
-              <h3 className="font-semibold text-foreground mb-2">24/7 Availability</h3>
-              <p className="text-sm text-muted-foreground">Round-the-clock support when you need it</p>
+
+            {/* Enhanced Trust Indicators */}
+            <div className="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto mb-12">
+              <div className="bg-card/50 backdrop-blur-sm p-6 rounded-xl shadow-card hover:shadow-elegant transition-all duration-500 border border-border/50 group animate-fade-in">
+                <div className="relative">
+                  <CheckCircle className="w-10 h-10 text-success mx-auto mb-4 group-hover:animate-scale-pulse" />
+                  <div className="absolute inset-0 w-10 h-10 bg-success/20 rounded-full animate-pulse-slow mx-auto" />
+                </div>
+                <h3 className="font-bold text-foreground mb-2 text-lg">Verified Support</h3>
+                <p className="text-sm text-muted-foreground">Certified Coinbase specialists with proven track record</p>
+              </div>
+              
+              <div className="bg-card/50 backdrop-blur-sm p-6 rounded-xl shadow-card hover:shadow-elegant transition-all duration-500 border border-border/50 group animate-fade-in [animation-delay:200ms]">
+                <div className="relative">
+                  <Clock className="w-10 h-10 text-primary mx-auto mb-4 group-hover:animate-scale-pulse" />
+                  <div className="absolute inset-0 w-10 h-10 bg-primary/20 rounded-full animate-pulse-slow mx-auto" />
+                </div>
+                <h3 className="font-bold text-foreground mb-2 text-lg">24/7 Availability</h3>
+                <p className="text-sm text-muted-foreground">Round-the-clock premium support when you need it most</p>
+              </div>
+              
+              <div className="bg-card/50 backdrop-blur-sm p-6 rounded-xl shadow-card hover:shadow-elegant transition-all duration-500 border border-border/50 group animate-fade-in [animation-delay:400ms]">
+                <div className="relative">
+                  <Users className="w-10 h-10 text-warning mx-auto mb-4 group-hover:animate-scale-pulse" />
+                  <div className="absolute inset-0 w-10 h-10 bg-warning/20 rounded-full animate-pulse-slow mx-auto" />
+                </div>
+                <h3 className="font-bold text-foreground mb-2 text-lg">10,000+ Happy Users</h3>
+                <p className="text-sm text-muted-foreground">Join satisfied Coinbase users worldwide who trust us</p>
+              </div>
+              
+              <div className="bg-card/50 backdrop-blur-sm p-6 rounded-xl shadow-card hover:shadow-elegant transition-all duration-500 border border-border/50 group animate-fade-in [animation-delay:600ms]">
+                <div className="relative">
+                  <Star className="w-10 h-10 text-primary-glow mx-auto mb-4 group-hover:animate-scale-pulse" />
+                  <div className="absolute inset-0 w-10 h-10 bg-primary-glow/20 rounded-full animate-pulse-slow mx-auto" />
+                </div>
+                <h3 className="font-bold text-foreground mb-2 text-lg">4.9/5 Rating</h3>
+                <p className="text-sm text-muted-foreground">Highest rated Coinbase support service available</p>
+              </div>
             </div>
-            <div className="bg-card p-6 rounded-lg shadow-card animate-fade-in">
-              <Users className="w-8 h-8 text-warning mx-auto mb-3" />
-              <h3 className="font-semibold text-foreground mb-2">Trusted by Thousands</h3>
-              <p className="text-sm text-muted-foreground">Join satisfied Coinbase users worldwide</p>
+
+            {/* Performance Metrics */}
+            <div className="bg-card/30 backdrop-blur-md rounded-2xl p-8 shadow-deep border border-border/30">
+              <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center justify-center gap-2">
+                <Award className="w-6 h-6 text-primary" />
+                Why Choose Our Premium Support?
+              </h3>
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-primary mb-2 flex items-center justify-center gap-2">
+                    <TrendingUp className="w-8 h-8" />
+                    99.8%
+                  </div>
+                  <p className="text-muted-foreground">Issue Resolution Rate</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-primary mb-2">&lt; 5min</div>
+                  <p className="text-muted-foreground">Average Response Time</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-primary mb-2">24/7</div>
+                  <p className="text-muted-foreground">Expert Availability</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

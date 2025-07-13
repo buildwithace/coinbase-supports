@@ -43,19 +43,31 @@ All colors MUST be HSL.
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
 
-    /* Professional gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 100%);
+    /* Advanced gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 50%, hsl(221 100% 70%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 30%, hsl(221 100% 75%) 60%, hsl(var(--primary)) 100%);
     --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(var(--accent)));
+    --gradient-advanced: linear-gradient(45deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 25%, hsl(221 100% 65%) 50%, hsl(var(--primary-glow)) 75%, hsl(var(--primary)) 100%);
+    --gradient-glass: linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--accent)) 100%);
 
-    /* Professional shadows */
-    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.3);
-    --shadow-soft: 0 4px 20px -4px hsl(var(--primary) / 0.15);
-    --shadow-card: 0 2px 10px -2px hsl(221 83% 53% / 0.1);
+    /* Advanced shadows and effects */
+    --shadow-elegant: 0 20px 40px -12px hsl(var(--primary) / 0.4);
+    --shadow-soft: 0 8px 30px -8px hsl(var(--primary) / 0.2);
+    --shadow-card: 0 4px 20px -4px hsl(221 83% 53% / 0.15);
+    --shadow-glow: 0 0 50px hsl(var(--primary-glow) / 0.6);
+    --shadow-inset: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    --shadow-deep: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 
-    /* Transitions */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    /* Glass morphism effects */
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-backdrop: blur(20px);
+
+    /* Advanced transitions */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-elastic: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
     --radius: 0.5rem;
 
