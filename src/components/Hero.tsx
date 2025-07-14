@@ -1,6 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Shield, CheckCircle, Clock, Users, Star, Zap, Award, TrendingUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import ceoImage from "@/assets/ceo-image.jpg";
+import teamMember1 from "@/assets/team-member-1.jpg";
+import teamMember2 from "@/assets/team-member-2.jpg";
+import teamMember3 from "@/assets/team-member-3.jpg";
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -99,6 +103,65 @@ const Hero = () => {
                 </div>
                 <h3 className="font-bold text-foreground mb-2 text-lg">4.9/5 Rating</h3>
                 <p className="text-sm text-muted-foreground">Highest rated Coinbase support service available</p>
+              </div>
+            </div>
+
+            {/* Expert Team Section */}
+            <div className="bg-card/30 backdrop-blur-md rounded-2xl p-8 shadow-deep border border-border/30 mb-8">
+              <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center justify-center gap-2">
+                <Users className="w-6 h-6 text-primary" />
+                Meet Your Expert Support Team
+              </h3>
+              
+              {/* CEO Section */}
+              <div className="text-center mb-8">
+                <div className="relative inline-block mb-4">
+                  <img 
+                    src={ceoImage} 
+                    alt="CEO Brian Armstrong" 
+                    className="w-32 h-32 rounded-full mx-auto border-4 border-primary/30 shadow-deep object-cover hover:shadow-glow transition-all duration-300"
+                  />
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-success rounded-full border-4 border-card animate-pulse" />
+                </div>
+                <h4 className="text-xl font-bold text-foreground">Brian Armstrong</h4>
+                <p className="text-sm text-muted-foreground mb-2">CEO & Founder, Coinbase</p>
+                <p className="text-sm text-primary italic max-w-md mx-auto">
+                  "We're committed to providing the highest level of support to our users. Your security and satisfaction are our top priorities."
+                </p>
+              </div>
+              
+              {/* Team Members */}
+              <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div className="text-center group">
+                  <img 
+                    src={teamMember1} 
+                    alt="Security Specialist" 
+                    className="w-24 h-24 rounded-full mx-auto mb-4 border-3 border-primary/20 object-cover group-hover:shadow-elegant transition-all duration-300"
+                  />
+                  <h5 className="text-lg font-bold text-foreground">Sarah Johnson</h5>
+                  <p className="text-sm text-muted-foreground mb-1">Senior Security Specialist</p>
+                  <p className="text-xs text-success">● Online - 5 years experience</p>
+                </div>
+                <div className="text-center group">
+                  <img 
+                    src={teamMember2} 
+                    alt="Trading Expert" 
+                    className="w-24 h-24 rounded-full mx-auto mb-4 border-3 border-primary/20 object-cover group-hover:shadow-elegant transition-all duration-300"
+                  />
+                  <h5 className="text-lg font-bold text-foreground">Michael Chen</h5>
+                  <p className="text-sm text-muted-foreground mb-1">Trading Operations Expert</p>
+                  <p className="text-xs text-success">● Online - 4 years experience</p>
+                </div>
+                <div className="text-center group">
+                  <img 
+                    src={teamMember3} 
+                    alt="Support Manager" 
+                    className="w-24 h-24 rounded-full mx-auto mb-4 border-3 border-primary/20 object-cover group-hover:shadow-elegant transition-all duration-300"
+                  />
+                  <h5 className="text-lg font-bold text-foreground">David Rodriguez</h5>
+                  <p className="text-sm text-muted-foreground mb-1">Support Team Manager</p>
+                  <p className="text-xs text-success">● Online - 6 years experience</p>
+                </div>
               </div>
             </div>
 

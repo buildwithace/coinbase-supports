@@ -23,6 +23,7 @@ interface ChatContextType {
   messages: Message[];
   users: ChatUser[];
   addMessage: (message: Omit<Message, 'id' | 'timestamp' | 'status'>) => void;
+  addAdminReply: (text: string, replyToId?: string) => void;
   markAsRead: (messageId: string) => void;
   addUser: (user: Omit<ChatUser, 'id' | 'lastSeen' | 'unreadCount'>) => void;
   updateUserStatus: (userId: string, isOnline: boolean) => void;
@@ -58,6 +59,17 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       id: Date.now().toString(),
       timestamp: new Date(),
       status: 'sent'
+    };
+    setMessages(prev => [...prev, newMessage]);
+  };
+
+  const addAdminReply = (text: string, replyToId?: string) => {
+    const newMessage: Message = {
+      id: Date.now().toString(),
+      text,
+      sender: 'admin',
+      timestamp: new Date(),
+      status: 'delivered'
     };
     setMessages(prev => [...prev, newMessage]);
   };
@@ -99,6 +111,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       messages,
       users,
       addMessage,
+      addAdminReply,
       markAsRead,
       addUser,
       updateUserStatus,

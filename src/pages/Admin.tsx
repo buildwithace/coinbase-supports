@@ -4,7 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Shield, Lock, Users, MessageSquare, Settings, Eye, TrendingUp, Activity, Bell, Search, Filter } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import { Shield, Lock, Users, MessageSquare, Settings, Eye, TrendingUp, Activity, Bell, Search, Filter, Send, Bot, User } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useChatContext } from "@/contexts/ChatContext";
 import Header from "@/components/Header";
@@ -13,11 +14,33 @@ const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loginCode, setLoginCode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { messages, users, getUnreadCount } = useChatContext();
+  const [replyText, setReplyText] = useState("");
+  const [replyingTo, setReplyingTo] = useState<string | null>(null);
+  const { messages, users, getUnreadCount, addAdminReply, markAsRead } = useChatContext();
   const { toast } = useToast();
 
   const correctCode = "uC943YpKhpd8";
   const unreadCount = getUnreadCount();
+
+  const handleSendReply = () => {
+    if (replyText.trim()) {
+      addAdminReply(replyText);
+      setReplyText("");
+      setReplyingTo(null);
+      toast({
+        title: "Reply sent",
+        description: "Your response has been sent successfully."
+      });
+    }
+  };
+
+  const handleMarkAsRead = (messageId: string) => {
+    markAsRead(messageId);
+    toast({
+      title: "Message marked as read",
+      description: "The message status has been updated."
+    });
+  };
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -278,59 +301,157 @@ const Admin = () => {
               </TabsContent>
 
               <TabsContent value="chats">
-                <Card className="shadow-deep backdrop-blur-sm bg-card/80 border-border/30">
-                  <CardHeader className="bg-gradient-card">
-                    <CardTitle className="text-2xl flex items-center justify-between">
-                      <span>Live Chat Messages</span>
-                      <Badge variant="default" className="animate-pulse">
-                        {messages.length} Messages
-                      </Badge>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-6">
-                    <div className="space-y-4 max-h-96 overflow-y-auto">
-                      {messages.map((message, index) => (
-                        <div 
-                          key={message.id} 
-                          className={`p-4 rounded-lg border transition-all duration-300 hover:shadow-soft animate-fade-in ${
-                            message.sender === "user" 
-                              ? "bg-primary/10 border-primary/30" 
-                              : "bg-accent/50 border-border/50"
-                          }`}
-                          style={{ animationDelay: `${index * 50}ms` }}
-                        >
-                          <div className="flex items-start justify-between mb-2">
-                            <div className="flex items-center gap-2">
-                              <Badge 
-                                variant={message.sender === "user" ? "default" : "secondary"}
-                                className="text-xs"
-                              >
-                                {message.sender === "user" ? "User" : "Admin"}
-                              </Badge>
-                              <span className="text-sm text-muted-foreground">
-                                {message.timestamp.toLocaleString()}
-                              </span>
-                              {message.sender === "user" && message.status !== "read" && (
-                                <Badge variant="destructive" className="text-xs animate-pulse">
-                                  Unread
-                                </Badge>
-                              )}
+                <div className="grid lg:grid-cols-3 gap-6">
+                  {/* Messages List */}
+                  <div className="lg:col-span-2">
+                    <Card className="shadow-deep backdrop-blur-sm bg-card/80 border-border/30">
+                      <CardHeader className="bg-gradient-card">
+                        <CardTitle className="text-2xl flex items-center justify-between">
+                          <span>Live Chat Messages</span>
+                          <Badge variant="default" className="animate-pulse">
+                            {messages.length} Messages
+                          </Badge>
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="p-6">
+                        <div className="space-y-4 max-h-96 overflow-y-auto">
+                          {messages.map((message, index) => (
+                            <div 
+                              key={message.id} 
+                              className={`p-4 rounded-lg border transition-all duration-300 hover:shadow-soft animate-fade-in ${
+                                message.sender === "user" 
+                                  ? "bg-primary/10 border-primary/30" 
+                                  : "bg-accent/50 border-border/50"
+                              }`}
+                              style={{ animationDelay: `${index * 50}ms` }}
+                            >
+                              <div className="flex items-start justify-between mb-2">
+                                <div className="flex items-center gap-3">
+                                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                                    message.sender === "user" 
+                                      ? "bg-primary text-primary-foreground" 
+                                      : "bg-accent text-accent-foreground"
+                                  }`}>
+                                    {message.sender === "user" ? (
+                                      <User className="w-4 h-4" />
+                                    ) : (
+                                      <Bot className="w-4 h-4" />
+                                    )}
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <Badge 
+                                      variant={message.sender === "user" ? "default" : "secondary"}
+                                      className="text-xs"
+                                    >
+                                      {message.sender === "user" ? "User" : "Admin"}
+                                    </Badge>
+                                    <span className="text-sm text-muted-foreground">
+                                      {message.timestamp.toLocaleString()}
+                                    </span>
+                                    {message.sender === "user" && message.status !== "read" && (
+                                      <Badge variant="destructive" className="text-xs animate-pulse">
+                                        Unread
+                                      </Badge>
+                                    )}
+                                  </div>
+                                </div>
+                                <div className="flex gap-2">
+                                  {message.sender === "user" && message.status !== "read" && (
+                                    <Button 
+                                      variant="ghost" 
+                                      size="sm" 
+                                      className="text-xs"
+                                      onClick={() => handleMarkAsRead(message.id)}
+                                    >
+                                      Mark Read
+                                    </Button>
+                                  )}
+                                  <Button 
+                                    variant="ghost" 
+                                    size="sm" 
+                                    className="text-xs"
+                                    onClick={() => setReplyingTo(message.id)}
+                                  >
+                                    Reply
+                                  </Button>
+                                </div>
+                              </div>
+                              <p className="text-sm text-foreground pl-11">{message.text}</p>
                             </div>
-                            <Button variant="ghost" size="sm" className="text-xs">
-                              Reply
-                            </Button>
+                          ))}
+                          {messages.length === 0 && (
+                            <div className="text-center py-8 text-muted-foreground">
+                              No messages yet. Chat messages will appear here in real-time.
+                            </div>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  {/* Quick Reply Panel */}
+                  <div className="lg:col-span-1">
+                    <Card className="shadow-deep backdrop-blur-sm bg-card/80 border-border/30">
+                      <CardHeader className="bg-gradient-card">
+                        <CardTitle className="text-xl">Quick Reply</CardTitle>
+                      </CardHeader>
+                      <CardContent className="p-6">
+                        <div className="space-y-4">
+                          <div>
+                            <label className="block text-sm font-medium mb-2">
+                              Reply Message
+                            </label>
+                            <Textarea
+                              value={replyText}
+                              onChange={(e) => setReplyText(e.target.value)}
+                              placeholder="Type your reply..."
+                              className="min-h-[100px] resize-none"
+                            />
                           </div>
-                          <p className="text-sm text-foreground">{message.text}</p>
+                          <Button 
+                            onClick={handleSendReply}
+                            disabled={!replyText.trim()}
+                            className="w-full bg-gradient-primary hover:shadow-glow"
+                          >
+                            <Send className="w-4 h-4 mr-2" />
+                            Send Reply
+                          </Button>
+                          
+                          {/* Quick Response Templates */}
+                          <div className="space-y-2">
+                            <h4 className="text-sm font-medium">Quick Templates:</h4>
+                            <div className="space-y-1">
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="w-full justify-start text-xs"
+                                onClick={() => setReplyText("Thank you for contacting Coinbase Support. I'm reviewing your case and will provide assistance shortly.")}
+                              >
+                                Standard Response
+                              </Button>
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="w-full justify-start text-xs"
+                                onClick={() => setReplyText("I understand your concern about account security. Let me help you resolve this issue immediately.")}
+                              >
+                                Security Issue
+                              </Button>
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="w-full justify-start text-xs"
+                                onClick={() => setReplyText("For trading-related questions, I'll need to verify your account details. Please provide your account email for verification.")}
+                              >
+                                Trading Help
+                              </Button>
+                            </div>
+                          </div>
                         </div>
-                      ))}
-                      {messages.length === 0 && (
-                        <div className="text-center py-8 text-muted-foreground">
-                          No messages yet. Chat messages will appear here in real-time.
-                        </div>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
               </TabsContent>
 
               <TabsContent value="settings">

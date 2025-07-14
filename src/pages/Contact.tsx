@@ -4,9 +4,14 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Mail, Phone, MapPin, Send, CheckCircle, Shield, Clock, Users, Star } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import Header from "@/components/Header";
+import ceoImage from "@/assets/ceo-image.jpg";
+import teamMember1 from "@/assets/team-member-1.jpg";
+import teamMember2 from "@/assets/team-member-2.jpg";
+import teamMember3 from "@/assets/team-member-3.jpg";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -208,6 +213,103 @@ const Contact = () => {
                     <div className="flex items-center gap-2">
                       <CheckCircle className="w-4 h-4 text-success" />
                       <span className="text-sm">Secure & confidential</span>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="shadow-card">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Shield className="w-5 h-5 text-primary" />
+                      Leadership Team
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-center mb-4">
+                      <div className="relative inline-block">
+                        <img 
+                          src={ceoImage} 
+                          alt="CEO Brian Armstrong" 
+                          className="w-20 h-20 rounded-full mx-auto mb-3 border-3 border-primary/30 shadow-card object-cover"
+                        />
+                        <div className="absolute -top-1 -right-1 w-6 h-6 bg-success rounded-full border-2 border-card animate-pulse" />
+                      </div>
+                      <h4 className="text-sm font-bold text-foreground">Brian Armstrong</h4>
+                      <p className="text-xs text-muted-foreground">CEO, Coinbase</p>
+                    </div>
+                    
+                    <div className="grid grid-cols-3 gap-2">
+                      <div className="text-center">
+                        <img 
+                          src={teamMember1} 
+                          alt="Security Lead" 
+                          className="w-12 h-12 rounded-full mx-auto mb-2 border-2 border-primary/20 object-cover"
+                        />
+                        <p className="text-xs font-medium text-foreground">Security Lead</p>
+                        <Badge variant="outline" className="text-xs px-1 py-0">
+                          Online
+                        </Badge>
+                      </div>
+                      <div className="text-center">
+                        <img 
+                          src={teamMember2} 
+                          alt="Trading Expert" 
+                          className="w-12 h-12 rounded-full mx-auto mb-2 border-2 border-primary/20 object-cover"
+                        />
+                        <p className="text-xs font-medium text-foreground">Trading Expert</p>
+                        <Badge variant="outline" className="text-xs px-1 py-0">
+                          Online
+                        </Badge>
+                      </div>
+                      <div className="text-center">
+                        <img 
+                          src={teamMember3} 
+                          alt="Support Manager" 
+                          className="w-12 h-12 rounded-full mx-auto mb-2 border-2 border-primary/20 object-cover"
+                        />
+                        <p className="text-xs font-medium text-foreground">Support Mgr</p>
+                        <Badge variant="outline" className="text-xs px-1 py-0">
+                          Online
+                        </Badge>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="shadow-card">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Star className="w-5 h-5 text-primary" />
+                      Trust Metrics
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-4 h-4 text-primary" />
+                        <span className="text-sm">Response Time</span>
+                      </div>
+                      <Badge variant="default" className="bg-success text-success-foreground">
+                        &lt; 5 min
+                      </Badge>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Users className="w-4 h-4 text-primary" />
+                        <span className="text-sm">Users Helped</span>
+                      </div>
+                      <Badge variant="default" className="bg-primary text-primary-foreground">
+                        50,000+
+                      </Badge>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Shield className="w-4 h-4 text-primary" />
+                        <span className="text-sm">Security Score</span>
+                      </div>
+                      <Badge variant="default" className="bg-success text-success-foreground">
+                        99.9%
+                      </Badge>
                     </div>
                   </CardContent>
                 </Card>
