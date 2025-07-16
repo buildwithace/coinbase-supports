@@ -1,5 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Shield, CheckCircle, Clock, Users, Star, Zap, Award, TrendingUp } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Shield, CheckCircle, Clock, Users, Star, Zap, Award, TrendingUp, 
+         Lock, HeadphonesIcon, Globe, MessageCircle, DollarSign, 
+         CreditCard, AlertTriangle, Smartphone, Laptop } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import ceoImage from "@/assets/ceo-image.jpg";
 import teamMember1 from "@/assets/team-member-1.jpg";
@@ -166,7 +170,7 @@ const Hero = () => {
             </div>
 
             {/* Performance Metrics */}
-            <div className="bg-card/30 backdrop-blur-md rounded-2xl p-8 shadow-deep border border-border/30">
+            <div className="bg-card/30 backdrop-blur-md rounded-2xl p-8 shadow-deep border border-border/30 mb-8">
               <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center justify-center gap-2">
                 <Award className="w-6 h-6 text-primary" />
                 Why Choose Our Premium Support?
@@ -187,6 +191,125 @@ const Hero = () => {
                   <div className="text-3xl font-bold text-primary mb-2">24/7</div>
                   <p className="text-muted-foreground">Expert Availability</p>
                 </div>
+              </div>
+            </div>
+
+            {/* Service Categories */}
+            <div className="bg-card/30 backdrop-blur-md rounded-2xl p-8 shadow-deep border border-border/30 mb-8">
+              <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center justify-center gap-2">
+                <HeadphonesIcon className="w-6 h-6 text-primary" />
+                Complete Support Services
+              </h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <Card className="bg-card/50 backdrop-blur-sm border-border/30 hover:shadow-elegant transition-all duration-300 group">
+                  <CardContent className="p-6 text-center">
+                    <Lock className="w-12 h-12 text-primary mx-auto mb-4 group-hover:animate-scale-pulse" />
+                    <h4 className="font-bold text-foreground mb-2">Account Security</h4>
+                    <p className="text-sm text-muted-foreground">2FA setup, suspicious activity alerts, account recovery</p>
+                  </CardContent>
+                </Card>
+                
+                <Card className="bg-card/50 backdrop-blur-sm border-border/30 hover:shadow-elegant transition-all duration-300 group">
+                  <CardContent className="p-6 text-center">
+                    <CreditCard className="w-12 h-12 text-success mx-auto mb-4 group-hover:animate-scale-pulse" />
+                    <h4 className="font-bold text-foreground mb-2">Trading Issues</h4>
+                    <p className="text-sm text-muted-foreground">Order problems, market analysis, portfolio management</p>
+                  </CardContent>
+                </Card>
+                
+                <Card className="bg-card/50 backdrop-blur-sm border-border/30 hover:shadow-elegant transition-all duration-300 group">
+                  <CardContent className="p-6 text-center">
+                    <DollarSign className="w-12 h-12 text-warning mx-auto mb-4 group-hover:animate-scale-pulse" />
+                    <h4 className="font-bold text-foreground mb-2">Payment Support</h4>
+                    <p className="text-sm text-muted-foreground">Deposit/withdrawal issues, payment method setup</p>
+                  </CardContent>
+                </Card>
+                
+                <Card className="bg-card/50 backdrop-blur-sm border-border/30 hover:shadow-elegant transition-all duration-300 group">
+                  <CardContent className="p-6 text-center">
+                    <AlertTriangle className="w-12 h-12 text-destructive mx-auto mb-4 group-hover:animate-scale-pulse" />
+                    <h4 className="font-bold text-foreground mb-2">Emergency Help</h4>
+                    <p className="text-sm text-muted-foreground">Urgent account issues, fraud prevention, immediate assistance</p>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+
+            {/* Platform Support */}
+            <div className="bg-card/30 backdrop-blur-md rounded-2xl p-8 shadow-deep border border-border/30 mb-8">
+              <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center justify-center gap-2">
+                <Globe className="w-6 h-6 text-primary" />
+                Multi-Platform Support
+              </h3>
+              <div className="grid md:grid-cols-3 gap-6">
+                <Card className="bg-card/50 backdrop-blur-sm border-border/30 hover:shadow-elegant transition-all duration-300 group">
+                  <CardContent className="p-6 text-center">
+                    <Laptop className="w-16 h-16 text-primary mx-auto mb-4 group-hover:animate-scale-pulse" />
+                    <h4 className="font-bold text-foreground mb-2">Desktop Platform</h4>
+                    <p className="text-sm text-muted-foreground">Full Coinbase Pro features with advanced trading tools</p>
+                    <Badge variant="outline" className="mt-2">Available 24/7</Badge>
+                  </CardContent>
+                </Card>
+                
+                <Card className="bg-card/50 backdrop-blur-sm border-border/30 hover:shadow-elegant transition-all duration-300 group">
+                  <CardContent className="p-6 text-center">
+                    <Smartphone className="w-16 h-16 text-success mx-auto mb-4 group-hover:animate-scale-pulse" />
+                    <h4 className="font-bold text-foreground mb-2">Mobile App</h4>
+                    <p className="text-sm text-muted-foreground">iOS & Android app support with instant notifications</p>
+                    <Badge variant="outline" className="mt-2">Expert Guidance</Badge>
+                  </CardContent>
+                </Card>
+                
+                <Card className="bg-card/50 backdrop-blur-sm border-border/30 hover:shadow-elegant transition-all duration-300 group">
+                  <CardContent className="p-6 text-center">
+                    <MessageCircle className="w-16 h-16 text-warning mx-auto mb-4 group-hover:animate-scale-pulse" />
+                    <h4 className="font-bold text-foreground mb-2">Live Chat</h4>
+                    <p className="text-sm text-muted-foreground">Instant support through our advanced chat system</p>
+                    <Badge variant="outline" className="mt-2">Real-time Help</Badge>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+
+            {/* Quick Action Buttons */}
+            <div className="bg-card/30 backdrop-blur-md rounded-2xl p-8 shadow-deep border border-border/30">
+              <h3 className="text-2xl font-bold text-foreground mb-6 text-center">Quick Support Actions</h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <Button 
+                  variant="outline" 
+                  className="h-16 flex flex-col gap-2 border-primary/30 hover:border-primary hover:shadow-soft"
+                  onClick={() => navigate("/contact")}
+                >
+                  <Lock className="w-6 h-6" />
+                  <span className="text-sm">Account Recovery</span>
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  className="h-16 flex flex-col gap-2 border-success/30 hover:border-success hover:shadow-soft"
+                  onClick={() => navigate("/contact")}
+                >
+                  <CreditCard className="w-6 h-6" />
+                  <span className="text-sm">Trading Help</span>
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  className="h-16 flex flex-col gap-2 border-warning/30 hover:border-warning hover:shadow-soft"
+                  onClick={() => navigate("/contact")}
+                >
+                  <DollarSign className="w-6 h-6" />
+                  <span className="text-sm">Payment Issues</span>
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  className="h-16 flex flex-col gap-2 border-destructive/30 hover:border-destructive hover:shadow-soft"
+                  onClick={() => document.getElementById("live-chat")?.scrollIntoView({ behavior: "smooth" })}
+                >
+                  <MessageCircle className="w-6 h-6" />
+                  <span className="text-sm">Emergency Chat</span>
+                </Button>
               </div>
             </div>
           </div>

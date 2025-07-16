@@ -122,12 +122,6 @@ const Admin = () => {
                     </Button>
                   </form>
                   
-                  <div className="mt-8 p-6 bg-accent/50 backdrop-blur-sm rounded-lg border border-border/30">
-                    <p className="text-sm text-accent-foreground">
-                      <strong>Demo Note:</strong> This admin panel is visible to demonstrate functionality. 
-                      In production, this would be on a secure subdomain with proper authentication.
-                    </p>
-                  </div>
                 </CardContent>
               </Card>
             </div>
