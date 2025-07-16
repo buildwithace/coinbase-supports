@@ -22,9 +22,9 @@ const Admin = () => {
   const correctCode = "uC943YpKhpd8";
   const unreadCount = getUnreadCount();
 
-  const handleSendReply = () => {
+  const handleSendReply = async () => {
     if (replyText.trim()) {
-      addAdminReply(replyText);
+      await addAdminReply(replyText);
       setReplyText("");
       setReplyingTo(null);
       toast({
@@ -34,8 +34,8 @@ const Admin = () => {
     }
   };
 
-  const handleMarkAsRead = (messageId: string) => {
-    markAsRead(messageId);
+  const handleMarkAsRead = async (messageId: string) => {
+    await markAsRead(messageId);
     toast({
       title: "Message marked as read",
       description: "The message status has been updated."

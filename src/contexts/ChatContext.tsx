@@ -173,13 +173,21 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
           is_online: true
         });
 
-        // Add welcome message
-        await supabase.from('chat_messages').insert({
-          session_id: sessionId,
-          text: 'Hello! Welcome to Coinbase Support Pro. I am here to assist you with any account issues, trading problems, or security concerns. How can I help you today?',
-          sender: 'admin',
-          status: 'delivered'
-        });
+        // Add welcome message only if no messages exist
+        const { data: existingMessages } = await supabase
+          .from('chat_messages')
+          .select('id')
+          .eq('session_id', sessionId)
+          .limit(1);
+
+        if (!existingMessages || existingMessages.length === 0) {
+          await supabase.from('chat_messages').insert({
+            session_id: sessionId,
+            text: 'Hello! Welcome to Coinbase Support Pro. I am here to assist you with any account issues, trading problems, or security concerns. How can I help you today?',
+            sender: 'admin',
+            status: 'delivered'
+          });
+        }
       } else {
         // Update existing session to online
         await supabase
