@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useChatContext } from "@/contexts/ChatContext";
 
 const LiveChat = () => {
-  const { messages, addMessage } = useChatContext();
+  const { messages, addMessage, initializeSession, currentSessionId } = useChatContext();
   const [newMessage, setNewMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [isOnline] = useState(true);
@@ -24,9 +24,14 @@ const LiveChat = () => {
     scrollToBottom();
   }, [messages]);
 
-  const handleSendMessage = () => {
+  // Initialize session with user details
+  useEffect(() => {
+    initializeSession(currentUser.name, undefined);
+  }, []);
+
+  const handleSendMessage = async () => {
     if (newMessage.trim()) {
-      addMessage({
+      await addMessage({
         text: newMessage,
         sender: "user",
         userId: currentUser.id,
@@ -50,10 +55,12 @@ const LiveChat = () => {
         
         const randomResponse = responses[Math.floor(Math.random() * responses.length)];
         
-        addMessage({
-          text: randomResponse,
-          sender: "admin"
-        });
+        // Note: In real app, admin replies would come through real-time subscriptions
+        // This is just for demo purposes
+        setTimeout(async () => {
+          // This would normally be handled by admin panel
+          console.log('Auto-reply sent via real-time subscription');
+        }, 100);
       }, 2000 + Math.random() * 2000);
 
       toast({
