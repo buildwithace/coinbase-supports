@@ -343,6 +343,140 @@ const Hero = () => {
                     </div>
                   </div>
                 </Card>
+
+                <Card className="bg-card/50 backdrop-blur-sm border-border/30 hover:shadow-elegant transition-all duration-300 p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="flex text-yellow-400">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-current" />
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    "Had a payment issue that was preventing me from buying Bitcoin. The support specialist walked me through the solution step by step. Amazing customer service experience!"
+                  </p>
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-sm font-semibold text-primary">RW</span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-sm">Rachel W.</p>
+                      <p className="text-xs text-muted-foreground">Business Owner</p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="bg-card/50 backdrop-blur-sm border-border/30 hover:shadow-elegant transition-all duration-300 p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="flex text-yellow-400">
+                      {[...Array(4)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-current" />
+                      ))}
+                      <Star className="w-4 h-4 text-yellow-400" />
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    "Great support team! They helped me set up 2FA security after I got suspicious emails. Response was quick and they verified my identity properly. Feel much safer now."
+                  </p>
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-sm font-semibold text-primary">JM</span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-sm">James M.</p>
+                      <p className="text-xs text-muted-foreground">IT Professional</p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="bg-card/50 backdrop-blur-sm border-border/30 hover:shadow-elegant transition-all duration-300 p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="flex text-yellow-400">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-current" />
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    "My withdrawal was stuck for hours and I was panicking. The support agent not only resolved it immediately but also explained what happened. Professional and reassuring!"
+                  </p>
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-sm font-semibold text-primary">AL</span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-sm">Anna L.</p>
+                      <p className="text-xs text-muted-foreground">Day Trader</p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="bg-card/50 backdrop-blur-sm border-border/30 hover:shadow-elegant transition-all duration-300 p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="flex text-yellow-400">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-current" />
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    "Coinbase support helped me recover my account after I forgot my password and lost my phone. The verification process was thorough but fair. Got my crypto back safely!"
+                  </p>
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-sm font-semibold text-primary">TC</span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-sm">Tom C.</p>
+                      <p className="text-xs text-muted-foreground">Engineer</p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="bg-card/50 backdrop-blur-sm border-border/30 hover:shadow-elegant transition-all duration-300 p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="flex text-yellow-400">
+                      {[...Array(4)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-current" />
+                      ))}
+                      <Star className="w-4 h-4 text-yellow-400" />
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    "The mobile app was acting up and I couldn't access my portfolio. Support guided me through clearing cache and updating the app. Works perfectly now. Thanks!"
+                  </p>
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-sm font-semibold text-primary">LR</span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-sm">Lisa R.</p>
+                      <p className="text-xs text-muted-foreground">Student</p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="bg-card/50 backdrop-blur-sm border-border/30 hover:shadow-elegant transition-all duration-300 p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="flex text-yellow-400">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-current" />
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    "Excellent support for institutional trading. They helped set up API access for our trading bot and provided detailed documentation. Very professional service."
+                  </p>
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-sm font-semibold text-primary">PH</span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-sm">Peter H.</p>
+                      <p className="text-xs text-muted-foreground">Fund Manager</p>
+                    </div>
+                  </div>
+                </Card>
               </div>
             </div>
 
