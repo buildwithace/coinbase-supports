@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Shield, CheckCircle, Clock, Users, Star, Zap, Award, TrendingUp, 
          Lock, HeadphonesIcon, Globe, MessageCircle, DollarSign, 
-         CreditCard, AlertTriangle, Smartphone, Laptop } from "lucide-react";
+         CreditCard, AlertTriangle, Smartphone, Laptop, Phone } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import ceoImage from "@/assets/ceo-image.jpg";
 import teamMember1 from "@/assets/team-member-1.jpg";
@@ -267,6 +267,81 @@ const Hero = () => {
                     <p className="text-sm text-muted-foreground">Instant support through our advanced chat system</p>
                     <Badge variant="outline" className="mt-2">Real-time Help</Badge>
                   </CardContent>
+                </Card>
+              </div>
+            </div>
+
+            {/* Customer Testimonials */}
+            <div className="bg-card/30 backdrop-blur-md rounded-2xl p-8 shadow-deep border border-border/30 mb-8">
+              <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center justify-center gap-2">
+                <Star className="w-6 h-6 text-primary" />
+                What Our Customers Say
+              </h3>
+              <div className="grid md:grid-cols-3 gap-6">
+                <Card className="bg-card/50 backdrop-blur-sm border-border/30 hover:shadow-elegant transition-all duration-300 p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="flex text-yellow-400">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-current" />
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    "The support team resolved my account issue within minutes. Their live chat feature is incredibly responsive and the staff is very knowledgeable about crypto trading."
+                  </p>
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-sm font-semibold text-primary">MK</span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-sm">Michael K.</p>
+                      <p className="text-xs text-muted-foreground">Verified Customer</p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="bg-card/50 backdrop-blur-sm border-border/30 hover:shadow-elegant transition-all duration-300 p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="flex text-yellow-400">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-current" />
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    "I was locked out of my account during a critical trading moment. The team helped me regain access quickly and even provided tips to prevent future issues. Excellent service!"
+                  </p>
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-sm font-semibold text-primary">SL</span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-sm">Sarah L.</p>
+                      <p className="text-xs text-muted-foreground">Pro Trader</p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="bg-card/50 backdrop-blur-sm border-border/30 hover:shadow-elegant transition-all duration-300 p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="flex text-yellow-400">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-current" />
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    "As a new crypto investor, I had many questions. The support team was patient, educational, and helped me understand security best practices. Highly recommended!"
+                  </p>
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-sm font-semibold text-primary">DT</span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-sm">David T.</p>
+                      <p className="text-xs text-muted-foreground">New Investor</p>
+                    </div>
+                  </div>
                 </Card>
               </div>
             </div>
