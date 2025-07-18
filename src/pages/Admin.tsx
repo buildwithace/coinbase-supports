@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,11 +16,18 @@ const Admin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [replyText, setReplyText] = useState("");
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
-  const { messages, users, getUnreadCount, addAdminReply, markAsRead } = useChatContext();
+  const { allMessages, users, getUnreadCount, addAdminReply, markAsRead, initializeAdminMode } = useChatContext();
   const { toast } = useToast();
 
   const correctCode = "uC943YpKhpd8";
   const unreadCount = getUnreadCount();
+
+  // Initialize admin mode when authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      initializeAdminMode();
+    }
+  }, [isAuthenticated, initializeAdminMode]);
 
   const handleSendReply = async () => {
     if (replyText.trim()) {
@@ -230,7 +237,7 @@ const Admin = () => {
                 </TabsTrigger>
                 <TabsTrigger value="chats" className="flex items-center gap-2 text-lg h-12">
                   <Users className="w-5 h-5" />
-                  Live Chats ({messages.length})
+                  Live Chats ({allMessages.length})
                 </TabsTrigger>
                 <TabsTrigger value="settings" className="flex items-center gap-2 text-lg h-12">
                   <Settings className="w-5 h-5" />
@@ -303,13 +310,13 @@ const Admin = () => {
                         <CardTitle className="text-2xl flex items-center justify-between">
                           <span>Live Chat Messages</span>
                           <Badge variant="default" className="animate-pulse">
-                            {messages.length} Messages
+                            {allMessages.length} Messages
                           </Badge>
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="p-6">
                         <div className="space-y-4 max-h-96 overflow-y-auto">
-                          {messages.map((message, index) => (
+                          {allMessages.map((message, index) => (
                             <div 
                               key={message.id} 
                               className={`p-4 rounded-lg border transition-all duration-300 hover:shadow-soft animate-fade-in ${
@@ -373,7 +380,7 @@ const Admin = () => {
                               <p className="text-sm text-foreground pl-11">{message.text}</p>
                             </div>
                           ))}
-                          {messages.length === 0 && (
+                          {allMessages.length === 0 && (
                             <div className="text-center py-8 text-muted-foreground">
                               No messages yet. Chat messages will appear here in real-time.
                             </div>

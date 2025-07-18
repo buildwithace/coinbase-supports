@@ -26,6 +26,7 @@ interface ChatContextType {
   messages: Message[];
   users: ChatUser[];
   currentSessionId: string;
+  allMessages: Message[];
   addMessage: (message: Omit<Message, 'id' | 'timestamp' | 'status'>) => Promise<void>;
   addAdminReply: (text: string, replyToId?: string) => Promise<void>;
   markAsRead: (messageId: string) => Promise<void>;
@@ -33,6 +34,7 @@ interface ChatContextType {
   updateUserStatus: (userId: string, isOnline: boolean) => Promise<void>;
   getUnreadCount: () => number;
   initializeSession: (name?: string, email?: string) => Promise<void>;
+  initializeAdminMode: () => Promise<void>;
 }
 
 const ChatContext = createContext<ChatContextType | undefined>(undefined);
@@ -52,9 +54,11 @@ const generateSessionId = () => {
 
 export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [allMessages, setAllMessages] = useState<Message[]>([]);
   const [users, setUsers] = useState<ChatUser[]>([]);
   const [currentSessionId, setCurrentSessionId] = useState<string>('');
   const [isInitialized, setIsInitialized] = useState(false);
+  const [isAdminMode, setIsAdminMode] = useState(false);
 
   // Initialize session on mount
   useEffect(() => {
@@ -313,7 +317,85 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getUnreadCount = () => {
-    return messages.filter(msg => msg.sender === 'user' && msg.status !== 'read').length;
+    const messagesToCheck = isAdminMode ? allMessages : messages;
+    return messagesToCheck.filter(msg => msg.sender === 'user' && msg.status !== 'read').length;
+  };
+
+  const initializeAdminMode = async () => {
+    setIsAdminMode(true);
+    
+    try {
+      // Load ALL messages from ALL sessions for admin
+      const { data: allMessagesData } = await supabase
+        .from('chat_messages')
+        .select('*')
+        .order('created_at', { ascending: true });
+
+      if (allMessagesData) {
+        setAllMessages(allMessagesData.map(msg => ({
+          id: msg.id,
+          text: msg.text,
+          sender: msg.sender as 'user' | 'admin',
+          timestamp: new Date(msg.created_at),
+          status: msg.status as 'sent' | 'delivered' | 'read',
+          sessionId: msg.session_id
+        })));
+      }
+
+      // Load ALL sessions for admin
+      const { data: allSessionsData } = await supabase
+        .from('chat_sessions')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (allSessionsData) {
+        setUsers(allSessionsData.map(session => ({
+          id: session.id,
+          name: session.name || 'Anonymous User',
+          email: session.email || '',
+          isOnline: session.is_online,
+          lastSeen: new Date(session.last_seen),
+          unreadCount: 0,
+          sessionId: session.session_id
+        })));
+      }
+
+      // Set up real-time subscription for ALL messages in admin mode
+      const adminMessagesChannel = supabase
+        .channel('admin-chat-messages')
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'chat_messages'
+          },
+          (payload) => {
+            if (payload.eventType === 'INSERT') {
+              const newMessage = payload.new as any;
+              const messageObj = {
+                id: newMessage.id,
+                text: newMessage.text,
+                sender: newMessage.sender,
+                timestamp: new Date(newMessage.created_at),
+                status: newMessage.status,
+                sessionId: newMessage.session_id
+              };
+              setAllMessages(prev => [...prev, messageObj]);
+            } else if (payload.eventType === 'UPDATE') {
+              const updatedMessage = payload.new as any;
+              setAllMessages(prev => prev.map(msg => 
+                msg.id === updatedMessage.id 
+                  ? { ...msg, status: updatedMessage.status }
+                  : msg
+              ));
+            }
+          }
+        )
+        .subscribe();
+    } catch (error) {
+      console.error('Error initializing admin mode:', error);
+    }
   };
 
   // Update session to offline when user leaves
@@ -343,6 +425,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   return (
     <ChatContext.Provider value={{
       messages,
+      allMessages,
       users,
       currentSessionId,
       addMessage,
@@ -351,7 +434,8 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       addUser,
       updateUserStatus,
       getUnreadCount,
-      initializeSession
+      initializeSession,
+      initializeAdminMode
     }}>
       {children}
     </ChatContext.Provider>
