@@ -28,7 +28,7 @@ interface ChatContextType {
   currentSessionId: string;
   allMessages: Message[];
   addMessage: (message: Omit<Message, 'id' | 'timestamp' | 'status'>) => Promise<void>;
-  addAdminReply: (text: string, replyToId?: string) => Promise<void>;
+  addAdminReply: (text: string, targetSessionId?: string, replyToId?: string) => Promise<void>;
   markAsRead: (messageId: string) => Promise<void>;
   addUser: (user: Omit<ChatUser, 'id' | 'lastSeen' | 'unreadCount'>) => Promise<void>;
   updateUserStatus: (userId: string, isOnline: boolean) => Promise<void>;
@@ -281,12 +281,13 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const addAdminReply = async (text: string, replyToId?: string) => {
-    if (!currentSessionId) return;
+  const addAdminReply = async (text: string, targetSessionId?: string, replyToId?: string) => {
+    const sessionIdToUse = targetSessionId || currentSessionId;
+    if (!sessionIdToUse) return;
 
     try {
       await supabase.from('chat_messages').insert({
-        session_id: currentSessionId,
+        session_id: sessionIdToUse,
         text,
         sender: 'admin',
         status: 'delivered',

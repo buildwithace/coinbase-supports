@@ -16,6 +16,7 @@ const Admin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [replyText, setReplyText] = useState("");
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
+  const [selectedSessionId, setSelectedSessionId] = useState<string | null>(null);
   const { allMessages, users, getUnreadCount, addAdminReply, markAsRead, initializeAdminMode } = useChatContext();
   const { toast } = useToast();
 
@@ -30,10 +31,11 @@ const Admin = () => {
   }, [isAuthenticated, initializeAdminMode]);
 
   const handleSendReply = async () => {
-    if (replyText.trim()) {
-      await addAdminReply(replyText);
+    if (replyText.trim() && selectedSessionId) {
+      await addAdminReply(replyText, selectedSessionId);
       setReplyText("");
       setReplyingTo(null);
+      setSelectedSessionId(null);
       toast({
         title: "Reply sent",
         description: "Your response has been sent successfully."
@@ -371,7 +373,10 @@ const Admin = () => {
                                     variant="ghost" 
                                     size="sm" 
                                     className="text-xs"
-                                    onClick={() => setReplyingTo(message.id)}
+                                    onClick={() => {
+                                      setReplyingTo(message.id);
+                                      setSelectedSessionId(message.sessionId || '');
+                                    }}
                                   >
                                     Reply
                                   </Button>
@@ -397,11 +402,18 @@ const Admin = () => {
                         <CardTitle className="text-xl">Quick Reply</CardTitle>
                       </CardHeader>
                       <CardContent className="p-6">
-                        <div className="space-y-4">
-                          <div>
-                            <label className="block text-sm font-medium mb-2">
-                              Reply Message
-                            </label>
+                          <div className="space-y-4">
+                            {selectedSessionId && (
+                              <div className="p-3 bg-primary/10 border border-primary/30 rounded-lg">
+                                <p className="text-sm text-primary font-medium">
+                                  Replying to session: {selectedSessionId}
+                                </p>
+                              </div>
+                            )}
+                            <div>
+                              <label className="block text-sm font-medium mb-2">
+                                Reply Message
+                              </label>
                             <Textarea
                               value={replyText}
                               onChange={(e) => setReplyText(e.target.value)}
@@ -411,7 +423,7 @@ const Admin = () => {
                           </div>
                           <Button 
                             onClick={handleSendReply}
-                            disabled={!replyText.trim()}
+                            disabled={!replyText.trim() || !selectedSessionId}
                             className="w-full bg-gradient-primary hover:shadow-glow"
                           >
                             <Send className="w-4 h-4 mr-2" />
