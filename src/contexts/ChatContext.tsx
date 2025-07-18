@@ -47,6 +47,25 @@ export const useChatContext = () => {
   return context;
 };
 
+// Safe hook for optional chat context usage
+export const useChatContextSafe = () => {
+  const context = useContext(ChatContext);
+  return context || {
+    messages: [],
+    allMessages: [],
+    users: [],
+    currentSessionId: '',
+    addMessage: async () => {},
+    addAdminReply: async () => {},
+    markAsRead: async () => {},
+    addUser: async () => {},
+    updateUserStatus: async () => {},
+    getUnreadCount: () => 0,
+    initializeSession: async () => {},
+    initializeAdminMode: async () => {}
+  };
+};
+
 // Generate a unique session ID for anonymous users
 const generateSessionId = () => {
   return `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;

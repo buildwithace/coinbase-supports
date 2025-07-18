@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Shield, Menu, X, Bell, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useChatContext } from "@/contexts/ChatContext";
+import { useChatContextSafe } from "@/contexts/ChatContext";
 import { Badge } from "@/components/ui/badge";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const { getUnreadCount } = useChatContext();
+  const { getUnreadCount } = useChatContextSafe();
   const unreadCount = getUnreadCount();
 
   return (
